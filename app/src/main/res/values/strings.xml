@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">Presupuesto</string>
+
+    <!--HINTS-->
+    <string name="user_name">Enter your user name</string>
+    <string name="user_mail">Enter your user email</string>
+    <string name="average_amount">Enter your average amount</string>
+    <string name="description_field">Description</string>
+    <string name="amount_field">Amount</string>
+    <string name="credit_check">Use credit</string>
+    <string name="month_check">Use months</string>
+    <string name="cardpay_check">Add pay day to calendar</string>
+    <string name="card_amount_field">Credit amount</string>
+    <string name="budget_desc_field">Budget description</string>
+    <!--BUTTONS-->
+    <string name="save_button">Save data</string>
+    <!--LINKS-->
+    <string name="view_more_link">More</string>
+    <!--LABELS-->
+    <string name="initial_amount">initial ammount</string>
+    <string name="balance_amount">balance ammount</string>
+    <string name="expenses_amount">expenses ammount</string>
+    <string name="card_name">Card name</string>
+    <string name="card_credit">Card limit</string>
+    <string name="budget_configuration">Enter budget description and total money ammount available for this.</string>
+    <string name="budget_title">Budget: </string>
+    <string name="budget_total">Total: </string>
+    <string name="budget_balance">Balance: </string>
+    <!--ARRAY OF CATEGORIES-->
+    <string-array name="categories_array">
+        <item>Transport</item>
+        <item>Food</item>
+        <item>Grocery</item>
+        <item>Services (telephony,internet, etc)</item>
+        <item>Credits</item>
+        <item>Fun</item>
+        <item>Unexpected expenses</item>
+        <item>Various</item>
+    </string-array>
+    <!--Array of months credit-->
+    <string-array name="months_array">
+        <item>6</item>
+        <item>12</item>
+        <item>18</item>
+        <item>18</item>
+        <item>24</item>
+    </string-array>
+</resources>
