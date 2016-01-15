@@ -47,4 +47,9 @@ public class Categories {
         this.nameCategory = nameCategory;
     }
 
+    @Override
+    public String toString() {
+        return nameCategory;
+
+    }
 }

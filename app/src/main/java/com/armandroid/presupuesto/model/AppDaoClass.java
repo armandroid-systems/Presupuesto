@@ -119,8 +119,8 @@ public class AppDaoClass<T> extends ConnectionFactory{
 
     public List<Expenses> getExpensesByBudgetId (int key){
         String Q0 ="SELECT T0.idexpense,T0.id_budget, T0.id_tdc, T1.name_category, T0.description, T0.mount, T0.months, T2.card_name FROM Expenses AS T0 " +
-                "JOIN categories AS T1 ON T1.idcategory = T0.id_category " +
-                "JOIN Tdc AS T2 ON T2.idTdc = T0.id_Tdc " +
+                "LEFT JOIN categories AS T1 ON T1.idcategory = T0.id_category " +
+                "LEFT JOIN Tdc AS T2 ON T2.idTdc = T0.id_Tdc " +
                 "WHERE T0.id_budget = "+key;
         List<Expenses> expenses = new ArrayList<>();
         try{
@@ -159,10 +159,13 @@ public class AppDaoClass<T> extends ConnectionFactory{
     }
 
     //////////////GET CATALOGS///////////////////////
-    public CatWrapper getCatalogs(int key){
-        CatWrapper response = new CatWrapper();
-        response.arrayCategories = (List<Categories>)(Object)getGeneric(Categories.class,0);
-        response.arrayTdc = (List<Tdc>)(Object)getGeneric(Tdc.class,0);
+    public CatWrapper getCatalogs(String[] elements){
+        CatWrapper response      = new CatWrapper();
+
+        response.arrayUsers      = checkUserAndCatalogs(elements);
+        response.arrayTdc        = getGeneric(Tdc.class, 0);
+        response.arrayCategories = getGeneric(Categories.class, 0);
+
         return response;
     }
 

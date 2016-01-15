@@ -7,6 +7,6 @@ import com.armandroid.presupuesto.interfaces.BousinessCallback;
  */
 public interface ExpenseInteractor {
 
-    void getCategories(int key, BousinessCallback callback);
+    void getCatalogsAndUsers(String[] elements, BousinessCallback callback);
     void insertGeneric(Object param, BousinessCallback callback);
 }

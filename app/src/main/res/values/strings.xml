@@ -26,6 +26,7 @@
     <string name="budget_title">Budget: </string>
     <string name="budget_total">Total: </string>
     <string name="budget_balance">Balance: </string>
+    <string name="budget_expense">Expenses: </string>
     <!--ARRAY OF CATEGORIES-->
     <string-array name="categories_array">
         <item>Transport</item>

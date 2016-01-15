@@ -5,6 +5,8 @@ package com.armandroid.presupuesto.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.List;
+
 /**
  * Entity mapped to table "USERS".
  */
@@ -13,6 +15,8 @@ public class Users implements Parcelable{
     private Long id;
     private String name;
     private String email;
+    public  List<Categories> categories;
+    public  List<Tdc> cards;
 
     public Users() {
     }

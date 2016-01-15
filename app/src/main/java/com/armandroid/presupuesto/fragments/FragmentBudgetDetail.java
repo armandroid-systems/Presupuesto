@@ -48,7 +48,8 @@ public class FragmentBudgetDetail extends BaseFragment implements ViewListener, 
 
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
 
-
+        recyclerExpenses.setHasFixedSize(true);
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerExpenses.setLayoutManager(llm);
         recyclerExpenses.setAdapter(new ExpenseRecyclerAdapter(budgetComplete.getBudgetExpenses()));
 

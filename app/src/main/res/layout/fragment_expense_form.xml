@@ -42,6 +42,7 @@
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:id="@+id/spinnerTdc" />
 
     <CheckBox
@@ -53,6 +54,7 @@
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:id="@+id/spinnerMonts" />
 
     <Button

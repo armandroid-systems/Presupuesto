@@ -21,6 +21,7 @@ import com.armandroid.presupuesto.presenter.BudgetPresenterImpl;
 import com.armandroid.presupuesto.presenter.UsersPresenterImpl;
 import com.armandroid.presupuesto.utils.Constants;
 import com.armandroid.presupuesto.utils.ScreenManager;
+import com.armandroid.presupuesto.utils.UtilFunctions;
 import com.txusballesteros.widgets.FitChart;
 
 import java.util.List;
@@ -35,6 +36,7 @@ public class FragmentMenu extends BaseFragment implements AdapterView.OnItemClic
     private FitChart budgetChartMain;
     private BudgetPresenterImpl mPresenterImpl;
     private TextView textTotal;
+    private TextView textExpenses;
     private TextView textBalance;
     private TextView title;
     private MenuItem[] mArray = {
@@ -54,7 +56,8 @@ public class FragmentMenu extends BaseFragment implements AdapterView.OnItemClic
 
         title           = (TextView) menuView.findViewById(R.id.textViewBudgetTitle);
         textTotal       = (TextView) menuView.findViewById(R.id.textViewTotal);
-        textBalance     = (TextView) menuView.findViewById(R.id.textViewExpenses);
+        textExpenses    = (TextView) menuView.findViewById(R.id.textViewExpenses);
+        textBalance     = (TextView) menuView.findViewById(R.id.textViewBalance);
         mGrid           = (GridView) menuView.findViewById(R.id.gridView);
         budgetChartMain = (FitChart) menuView.findViewById(R.id.budgetChart);
 
@@ -125,14 +128,15 @@ public class FragmentMenu extends BaseFragment implements AdapterView.OnItemClic
     public void navigate(Object param) {
         List<Budget> results = (List<Budget>)param;
         if(!results.isEmpty()){
-            title.setText(getActivity().getString(R.string.budget_title)+results.get(0).getDescription()+" "+results.get(0).getDate());
-            textTotal.setText(getActivity().getString(R.string.budget_total)+results.get(0).getMoney());
-            textBalance.setText(getActivity().getString(R.string.budget_balance)+results.get(0).getBalance());
+            float mBalance = results.get(0).getMoney()-results.get(0).getBalance();
+            title.setText(getString(R.string.budget_title)+results.get(0).getDescription()+" "+results.get(0).getDate());
+            textTotal.setText(getActivity().getString(R.string.budget_total)+ UtilFunctions.formatTwoDecimals(results.get(0).getMoney()));
+            textExpenses.setText(getActivity().getString(R.string.budget_balance)+UtilFunctions.formatTwoDecimals(results.get(0).getBalance()));
+            textBalance.setText(getActivity().getString(R.string.budget_expense) + UtilFunctions.formatTwoDecimals(mBalance));
 
             budgetChartMain.setMaxValue(results.get(0).getMoney());
             budgetChartMain.setMinValue(0f);
             budgetChartMain.setValue(results.get(0).getBalance());
-            Log.d(TAG,"BALANCE "+results.get(0).getBalance());
         }
 
     }

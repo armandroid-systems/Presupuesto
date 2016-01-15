@@ -37,6 +37,14 @@
             android:id="@+id/textViewExpenses"
             android:layout_below="@+id/textViewTotal"
             android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/textViewBalance"
+            android:layout_below="@+id/textViewExpenses"
+            android:layout_centerHorizontal="true" />
     </RelativeLayout>
 
     <LinearLayout

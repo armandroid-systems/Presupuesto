@@ -21,8 +21,8 @@ public class ExpensePresenterImpl implements ExpensePresenter, BousinessCallback
     }
 
     @Override
-    public void getCatalogs(int key) {
-        expenseInteractor.getCategories(key, this);
+    public void getCatalogsAndUsers(String[] elements) {
+        expenseInteractor.getCatalogsAndUsers(elements, this);
     }
 
     @Override

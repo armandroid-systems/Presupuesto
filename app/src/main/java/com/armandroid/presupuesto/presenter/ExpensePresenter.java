@@ -5,6 +5,6 @@ package com.armandroid.presupuesto.presenter;
  */
 public interface ExpensePresenter {
 
-    void getCatalogs(int key);
+    void getCatalogsAndUsers(String[] elements);
     void insertExpense(Object param);
 }

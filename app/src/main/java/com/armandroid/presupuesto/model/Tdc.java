@@ -57,4 +57,8 @@ public class Tdc {
         this.expended = expended;
     }
 
+    @Override
+    public String toString() {
+        return cardName;
+    }
 }

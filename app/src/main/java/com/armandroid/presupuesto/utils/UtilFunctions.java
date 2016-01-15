@@ -13,7 +13,10 @@ public class UtilFunctions {
 
     public static String getCurrentDate(){
         SimpleDateFormat mFormat = new SimpleDateFormat("dd/MM/yyyy");
-        mFormat.format(new Date());
-        return mFormat.toString();
+        return mFormat.format(new Date());
+    }
+
+    public static String formatTwoDecimals(float number){
+        return String.format("%.02f",number);
     }
 }

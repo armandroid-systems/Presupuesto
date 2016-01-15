@@ -5,15 +5,14 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.armandroid.presupuesto.R;
-import com.armandroid.presupuesto.interfaces.ViewListener;
+import com.armandroid.presupuesto.model.CatWrapper;
 import com.armandroid.presupuesto.model.Users;
-import com.armandroid.presupuesto.presenter.UsersPresenter;
-import com.armandroid.presupuesto.presenter.UsersPresenterImpl;
 import com.armandroid.presupuesto.utils.Constants;
+import com.armandroid.presupuesto.utils.UtilFunctions;
 
 import java.util.List;
 
-public class SplashActivity extends BaseActivity implements ViewListener{
+public class SplashActivity extends BaseActivity {
     private final static String TAG = SplashActivity.class.getSimpleName();
 
     @Override
@@ -21,21 +20,13 @@ public class SplashActivity extends BaseActivity implements ViewListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        new UsersPresenterImpl(SplashActivity.this, this).checkUsersAndCatalogs(getResources().getStringArray(R.array.categories_array));
+        List mUsers = ((CatWrapper)this.getApplication()).arrayUsers;
 
-    }
-
-    @Override
-    public void showMessage(String error) {
-
-    }
-
-    @Override
-    public void navigate(Object param) {
-        if(!((List<Users>)param).isEmpty()){
+        if(!mUsers.isEmpty()){
             Log.d(TAG, "PARAM NOT NULL...");
-            Users data = ((List<Users>)param).get(0);
-            startActivity(new Intent(SplashActivity.this, MainActivity.class).putExtra(Constants.KEY_ACTIVITY_PARAM,data));
+            startActivity(new Intent(SplashActivity.this,
+                    MainActivity.class).putExtra(Constants.KEY_ACTIVITY_PARAM,
+                    (Users)mUsers.get(0)));
             finish();
         }else{
             Log.d(TAG,"PARAM NULL...");
@@ -43,4 +34,6 @@ public class SplashActivity extends BaseActivity implements ViewListener{
             finish();
         }
     }
+
+
 }

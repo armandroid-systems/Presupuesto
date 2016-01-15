@@ -18,9 +18,9 @@ public class ExpenseIntereactorImpl implements ExpenseInteractor{
     }
 
     @Override
-    public void getCategories(int key, BousinessCallback cb) {
+    public void getCatalogsAndUsers(String[] elements, BousinessCallback cb) {
         Log.d("INTERACTOR","GETTING CATEGORIES...");
-        cb.onSucces(mDao.getCatalogs(key));
+        cb.onSucces(mDao.getCatalogs(elements));
     }
 
     @Override
