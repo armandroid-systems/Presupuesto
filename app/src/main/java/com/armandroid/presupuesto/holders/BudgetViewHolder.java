@@ -23,9 +23,9 @@ public class BudgetViewHolder extends RecyclerView.ViewHolder implements View.On
         this.mLinkListener = linkListener;
 
         budgetDate      = (TextView)itemView.findViewById(R.id.budgetDate);
-        initialMount    = (TextView)itemView.findViewById(R.id.budgetInitial);
-        expensesMount   = (TextView)itemView.findViewById(R.id.budgetExpense);
-        balance         = (TextView)itemView.findViewById(R.id.budgetBalance);
+        initialMount    = (TextView)itemView.findViewById(R.id.budgetInitialValue);
+        expensesMount   = (TextView)itemView.findViewById(R.id.budgetExpenseValue);
+        balance         = (TextView)itemView.findViewById(R.id.budgetBalanceValue);
         link            = (TextView)itemView.findViewById(R.id.linkMore);
         link.setOnClickListener(this);
     }

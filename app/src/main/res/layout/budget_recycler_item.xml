@@ -29,8 +29,10 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:id="@+id/budgetCardHeader"
+                android:padding="10dp"
+                android:gravity="center_vertical"
                 android:background="@color/colorAccent"
                 android:orientation="vertical">
 
@@ -45,30 +47,79 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/budgetCardBody"
+                android:padding="10dp"
                 android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/initial_amount"
-                    android:id="@+id/budgetInitial" />
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/initial_amount"
+                        android:layout_weight="1"
+                        android:id="@+id/budgetInitialLabel" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/initial_amount"
+                        android:layout_weight="1"
+                        android:id="@+id/budgetInitialValue" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/expenses_amount"
-                    android:id="@+id/budgetExpense" />
+                    android:layout_weight="1"
+                    android:id="@+id/budgetExpenseLabel" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/expenses_amount"
+                    android:layout_weight="1"
+                    android:id="@+id/budgetExpenseValue" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/balance_amount"
-                    android:id="@+id/budgetBalance" />
+                    android:layout_weight="1"
+                    android:id="@+id/budgetBalanceLabel" />
+
+                <TextView
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:text="@string/balance_amount"
+                    android:layout_weight="1"
+                     android:id="@+id/budgetBalanceValue" />
+
+                </LinearLayout>
+
             </LinearLayout>
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
+                android:padding="10dp"
+                android:gravity="center_vertical"
                 android:id="@+id/budgetCardFooter">
                 <TextView
                     android:layout_width="wrap_content"
@@ -78,7 +129,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true" />
-            </RelativeLayout>
+            </LinearLayout>
 
         </LinearLayout>
 

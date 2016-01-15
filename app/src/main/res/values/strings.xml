@@ -17,9 +17,9 @@
     <!--LINKS-->
     <string name="view_more_link">More</string>
     <!--LABELS-->
-    <string name="initial_amount">initial ammount</string>
-    <string name="balance_amount">balance ammount</string>
-    <string name="expenses_amount">expenses ammount</string>
+    <string name="initial_amount">initial: </string>
+    <string name="balance_amount">balance: </string>
+    <string name="expenses_amount">expenses: </string>
     <string name="card_name">Card name</string>
     <string name="card_credit">Card limit</string>
     <string name="budget_configuration">Enter budget description and total money ammount available for this.</string>
