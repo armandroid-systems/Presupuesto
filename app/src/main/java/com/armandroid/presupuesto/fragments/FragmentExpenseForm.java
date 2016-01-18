@@ -75,6 +75,12 @@ public class FragmentExpenseForm extends BaseFragment implements View.OnClickLis
             useCredit.setVisibility(View.GONE);
         }
 
+        if(mParam != null){
+            Expenses theData = (Expenses)mParam;
+            editDesc.setText(theData.getDescription());
+            editMounth.setText(theData.getMount().toString());
+        }
+
         saveButton.setOnClickListener(this);
         useCredit.setOnCheckedChangeListener(this);
         monts.setOnCheckedChangeListener(this);

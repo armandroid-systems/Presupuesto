@@ -58,6 +58,17 @@ public class AppDaoClass<T> extends ConnectionFactory{
         return mResult;
     }
 
+    //////////////GET CATALOGS///////////////////////
+    public CatWrapper getCatalogs(String[] elements){
+        CatWrapper response      = new CatWrapper();
+
+        response.arrayUsers      = checkUserAndCatalogs(elements);
+        response.arrayTdc        = getGeneric(Tdc.class, 0);
+        response.arrayCategories = getGeneric(Categories.class, 0);
+
+        return response;
+    }
+
     //////CURD USER AND CONF/////
 
     public boolean insertCategories(String[] elements){
@@ -80,7 +91,7 @@ public class AppDaoClass<T> extends ConnectionFactory{
 
     public List<Object> checkUserAndCatalogs(String[] elements){
         insertCategories(elements);
-        return getGeneric(Users.class,0);
+        return getGeneric(Users.class, 0);
 
     }
 
@@ -158,16 +169,7 @@ public class AppDaoClass<T> extends ConnectionFactory{
         return result;
     }
 
-    //////////////GET CATALOGS///////////////////////
-    public CatWrapper getCatalogs(String[] elements){
-        CatWrapper response      = new CatWrapper();
 
-        response.arrayUsers      = checkUserAndCatalogs(elements);
-        response.arrayTdc        = getGeneric(Tdc.class, 0);
-        response.arrayCategories = getGeneric(Categories.class, 0);
-
-        return response;
-    }
 
 
 }

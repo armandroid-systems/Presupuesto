@@ -14,6 +14,8 @@
     <string name="budget_desc_field">Budget description</string>
     <!--BUTTONS-->
     <string name="save_button">Save data</string>
+    <string name="edit_button">Edit</string>
+    <string name="delete_button">Delete</string>
     <!--LINKS-->
     <string name="view_more_link">More</string>
     <!--LABELS-->
@@ -27,6 +29,9 @@
     <string name="budget_total">Total: </string>
     <string name="budget_balance">Balance: </string>
     <string name="budget_expense">Expenses: </string>
+    <string name="expense_category">Cateogry </string>
+    <string name="expense_description">Decription</string>
+    <string name="expense_mount">Mount </string>
     <!--ARRAY OF CATEGORIES-->
     <string-array name="categories_array">
         <item>Transport</item>

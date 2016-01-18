@@ -9,6 +9,7 @@ import com.armandroid.presupuesto.R;
 import com.armandroid.presupuesto.holders.BudgetViewHolder;
 import com.armandroid.presupuesto.interfaces.ClickListener;
 import com.armandroid.presupuesto.model.Budget;
+import com.armandroid.presupuesto.utils.UtilFunctions;
 
 /**
  * Created by armando.dominguez on 30/12/2015.
@@ -17,10 +18,10 @@ public class BudgetRecyclerAdapter extends RecyclerView.Adapter<BudgetViewHolder
     private static final String TAG = BudgetRecyclerAdapter.class.getSimpleName();
 
     private Budget[] mData;
-    private ClickListener something;
+    private ClickListener clickListener;
 
     public BudgetRecyclerAdapter(Budget[] data, ClickListener something) {
-        this.something = something;
+        this.clickListener = something;
         this.mData = data;
     }
 
@@ -32,16 +33,15 @@ public class BudgetRecyclerAdapter extends RecyclerView.Adapter<BudgetViewHolder
     @Override
     public BudgetViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.budget_recycler_item,parent,false);
-        return new BudgetViewHolder(itemView,something);
+        return new BudgetViewHolder(itemView,clickListener);
     }
 
     @Override
     public void onBindViewHolder(BudgetViewHolder holder, int position) {
         holder.budgetDate.setText(mData[position].getDate());
-        //TODO check format number
-        holder.initialMount.setText("" + mData[position].getMoney());
-        holder.expensesMount.setText("" + mData[position].getBalance());
-        holder.balance.setText(""+(mData[position].getMoney() - mData[position].getBalance()));
+        holder.initialMount.setText(UtilFunctions.formatTwoDecimals(mData[position].getMoney()));
+        holder.expensesMount.setText(UtilFunctions.formatTwoDecimals(mData[position].getBalance()));
+        holder.balance.setText(UtilFunctions.formatTwoDecimals((mData[position].getMoney() - mData[position].getBalance())));
 
     }
 

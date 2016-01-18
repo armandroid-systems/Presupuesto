@@ -5,4 +5,5 @@ package com.armandroid.presupuesto.interfaces;
  */
 public interface ClickListener {
     void onClickLinkListener(int identifier);
+    void actionClickListener(int identifier, int operation);
 }

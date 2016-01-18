@@ -45,4 +45,9 @@ public class FragmentCardList extends BaseFragment implements ClickListener {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void actionClickListener(int identifier, int operation) {
+
+    }
 }

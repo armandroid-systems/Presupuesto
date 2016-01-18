@@ -7,17 +7,22 @@ import android.view.ViewGroup;
 
 import com.armandroid.presupuesto.R;
 import com.armandroid.presupuesto.holders.ExpenseHolder;
+import com.armandroid.presupuesto.interfaces.ClickListener;
+import com.armandroid.presupuesto.interfaces.ViewListener;
 import com.armandroid.presupuesto.model.Expenses;
 
 /**
  * Created by armando.dominguez on 04/01/2016.
  */
-public class ExpenseRecyclerAdapter extends RecyclerView.Adapter<ExpenseHolder> {
+public class ExpenseRecyclerAdapter extends RecyclerView.Adapter<ExpenseHolder>{
 
     private Expenses[] theExpense;
+    private ClickListener mListener;
 
-    public ExpenseRecyclerAdapter(Expenses[] theExpense) {
+
+    public ExpenseRecyclerAdapter(Expenses[] theExpense, ClickListener theListener) {
         this.theExpense = theExpense;
+        this.mListener = theListener;
     }
 
     @Override
@@ -33,12 +38,15 @@ public class ExpenseRecyclerAdapter extends RecyclerView.Adapter<ExpenseHolder> 
     @Override
     public ExpenseHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View expenseItemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.expense_recycler_item,parent, false);
-        return new ExpenseHolder(expenseItemView);
+        return new ExpenseHolder(expenseItemView, mListener);
     }
 
     @Override
     public void onBindViewHolder(ExpenseHolder holder, int position) {
-        holder.mount.setText("Monto: "+theExpense[position].getMount());
-        holder.category.setText("Categoria:"+theExpense[position].getCategoryName());
+        holder.description.setText(theExpense[position].getDescription());
+        holder.mount.setText(theExpense[position].getMount().toString());
+        holder.category.setText(theExpense[position].getCategoryName());
     }
+
+   
 }

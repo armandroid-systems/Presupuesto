@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.armandroid.presupuesto.R;
 import com.armandroid.presupuesto.adapters.ExpenseRecyclerAdapter;
+import com.armandroid.presupuesto.interfaces.ClickListener;
 import com.armandroid.presupuesto.interfaces.ViewListener;
 import com.armandroid.presupuesto.model.Budget;
 import com.armandroid.presupuesto.presenter.BudgetPresenterImpl;
@@ -25,7 +26,7 @@ import org.w3c.dom.Text;
 /**
  * Created by armando.dominguez on 29/12/2015.
  */
-public class FragmentBudgetDetail extends BaseFragment implements ViewListener, View.OnClickListener{
+public class FragmentBudgetDetail extends BaseFragment implements ViewListener, View.OnClickListener, ClickListener{
 
     private FitChart budgetChartDetail;
     private RecyclerView recyclerExpenses;
@@ -61,7 +62,7 @@ public class FragmentBudgetDetail extends BaseFragment implements ViewListener, 
         recyclerExpenses.setHasFixedSize(true);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerExpenses.setLayoutManager(llm);
-        recyclerExpenses.setAdapter(new ExpenseRecyclerAdapter(budgetComplete.getBudgetExpenses()));
+        recyclerExpenses.setAdapter(new ExpenseRecyclerAdapter(budgetComplete.getBudgetExpenses(), this));
 
         return budgetDetail;
     }
@@ -104,5 +105,37 @@ public class FragmentBudgetDetail extends BaseFragment implements ViewListener, 
         budgetChartDetail.setMinValue(0f);
 
         budgetChartDetail.setValue(budgetComplete.getBalance());
+    }
+
+    @Override
+    public void onClickLinkListener(int identifier) {
+
+    }
+
+    @Override
+    public void actionClickListener(int identifier, int operation) {
+        if(operation != 0){
+            switch(operation){
+                case 1:
+                    try {
+                        ScreenManager.screenChange(getActivity(),
+                                R.id.mainActivityWrapper,
+                                FragmentExpenseForm.class,
+                                budgetComplete.getBudgetExpenses()[identifier],
+                                Constants.VIEW_EXPENSE,
+                                Constants.BIN_FALSE);
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    } catch (java.lang.InstantiationException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case 2:
+                    //ELIMINAR GASTO
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

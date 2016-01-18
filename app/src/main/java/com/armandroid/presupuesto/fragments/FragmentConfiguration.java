@@ -13,8 +13,10 @@ import android.widget.EditText;
 import com.armandroid.presupuesto.R;
 import com.armandroid.presupuesto.activities.ConfigurationActivity;
 import com.armandroid.presupuesto.activities.MainActivity;
+import com.armandroid.presupuesto.interactor.CurdBoussinesInteractorImpl;
 import com.armandroid.presupuesto.interfaces.ViewListener;
 import com.armandroid.presupuesto.model.Users;
+import com.armandroid.presupuesto.presenter.CurdPresenterImpl;
 import com.armandroid.presupuesto.presenter.UsersPresenterImpl;
 import com.armandroid.presupuesto.utils.Constants;
 import com.armandroid.presupuesto.utils.ScreenManager;
@@ -32,7 +34,8 @@ public class FragmentConfiguration extends BaseFragment implements View.OnClickL
     private EditText editMail;
     private EditText editAmmount;
     private EditText editBudgetDesc;
-    private UsersPresenterImpl presenter;
+    //private UsersPresenterImpl presenter;
+    private CurdPresenterImpl presenter;
     private Users object;
 
     @Nullable
@@ -48,7 +51,8 @@ public class FragmentConfiguration extends BaseFragment implements View.OnClickL
 
         buttonSave.setOnClickListener(this);
 
-        presenter = new UsersPresenterImpl(getActivity(),this);
+        //presenter = new UsersPresenterImpl(getActivity(),this);
+        presenter = new CurdPresenterImpl(getActivity(),this);
         return configurationVew;
     }
 
@@ -59,9 +63,10 @@ public class FragmentConfiguration extends BaseFragment implements View.OnClickL
                 object = new Users(null,
                         editName.getText().toString(),
                         editMail.getText().toString());
-                presenter.insertUser(editBudgetDesc.getText().toString(),
+                /*presenter.insertUser(editBudgetDesc.getText().toString(),
                         Float.parseFloat(editAmmount.getText().toString()),
-                        object);
+                        object);*/
+                //presenter.insertRecord();
                 break;
             default:
                 break;

@@ -90,4 +90,9 @@ public class FragmentBudgetHistory extends BaseFragment implements ViewListener,
         budgetArray = new Budget[((List<Budget>)param).size()];
         ((List<Budget>)param).toArray(budgetArray);
     }
+
+    @Override
+    public void actionClickListener(int identifier, int operation) {
+
+    }
 }
