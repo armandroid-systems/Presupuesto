@@ -15,7 +15,7 @@ import com.armandroid.presupuesto.interfaces.ClickListener;
 import com.armandroid.presupuesto.interfaces.ViewListener;
 import com.armandroid.presupuesto.model.Budget;
 import com.armandroid.presupuesto.model.Users;
-import com.armandroid.presupuesto.presenter.BudgetPresenterImpl;
+import com.armandroid.presupuesto.presenter.CurdPresenterImpl;
 import com.armandroid.presupuesto.utils.Constants;
 import com.armandroid.presupuesto.utils.ScreenManager;
 
@@ -29,14 +29,11 @@ public class FragmentBudgetHistory extends BaseFragment implements ViewListener,
     private Budget[] budgetArray;
     private RecyclerView mRecycler;
     private FloatingActionButton budgetFab;
-    private BudgetPresenterImpl budgetPresenter;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View budgetHistory = inflater.inflate(R.layout.fragment_budget, container, false);
-
-        budgetPresenter = new BudgetPresenterImpl(getContext(),this);
 
         mRecycler = (RecyclerView) budgetHistory.findViewById(R.id.recyclerBudget);
         budgetFab = (FloatingActionButton) budgetHistory.findViewById(R.id.toBudget);
@@ -46,7 +43,8 @@ public class FragmentBudgetHistory extends BaseFragment implements ViewListener,
 
         mRecycler.setLayoutManager(llm);
         if(mParam != null){
-            budgetPresenter.getBudget(((Users) mParam).getId().intValue());
+            cpiObject = new CurdPresenterImpl(getContext(),this);
+            cpiObject.getBudget(((Users) mParam).getId().intValue());
         }
         mRecycler.setAdapter(new BudgetRecyclerAdapter(budgetArray,this));
 

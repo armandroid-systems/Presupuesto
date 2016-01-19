@@ -9,16 +9,17 @@ import com.armandroid.presupuesto.R;
 import com.armandroid.presupuesto.holders.CardHolder;
 import com.armandroid.presupuesto.interfaces.ClickListener;
 import com.armandroid.presupuesto.model.CardVO;
+import com.armandroid.presupuesto.model.Tdc;
 
 /**
  * Created by armando.dominguez on 05/01/2016.
  */
 public class CardRecyclerAdapter extends RecyclerView.Adapter<CardHolder> {
 
-    private CardVO[] cardArray;
+    private Tdc[] cardArray;
     private ClickListener elementListener;
 
-    public CardRecyclerAdapter(CardVO[] paramArray, ClickListener listenerCardElement) {
+    public CardRecyclerAdapter(Tdc[] paramArray, ClickListener listenerCardElement) {
         this.cardArray = paramArray;
         this.elementListener = listenerCardElement;
     }
@@ -45,7 +46,7 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardHolder> {
 
     @Override
     public void onBindViewHolder(CardHolder holder, int position) {
-        holder.cardName.setText(cardArray[position].name);
-        holder.cardCredit.setText(""+cardArray[position].creditMount);
+        holder.cardName.setText(cardArray[position].getCardName());
+        holder.cardCredit.setText(""+cardArray[position].getCredit());
     }
 }

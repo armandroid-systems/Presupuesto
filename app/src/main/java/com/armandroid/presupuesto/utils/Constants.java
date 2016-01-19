@@ -13,6 +13,7 @@ public class Constants {
     public final static String VIEW_BUDGET_DET    = "budget_det";
     public final static String VIEW_EXPENSE       = "expense";
     public final static String VIEW_CARD          = "card";
+    public final static String VIEW_CARD_DET      = "card_detail";
     public final static String VIEW_CREDIT        = "credit";
     public final static String VIEW_CALC          = "calc";
     public final static String VIEW_MENU          = "menu";

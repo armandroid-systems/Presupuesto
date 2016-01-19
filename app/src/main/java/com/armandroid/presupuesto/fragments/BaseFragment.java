@@ -3,6 +3,8 @@ package com.armandroid.presupuesto.fragments;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
+import com.armandroid.presupuesto.model.CatWrapper;
+import com.armandroid.presupuesto.presenter.CurdPresenterImpl;
 import com.armandroid.presupuesto.utils.Constants;
 
 
@@ -12,6 +14,7 @@ import com.armandroid.presupuesto.utils.Constants;
 public class BaseFragment extends Fragment {
 
     protected Object mParam;
+    protected CurdPresenterImpl cpiObject;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

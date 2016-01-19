@@ -15,13 +15,12 @@ import com.armandroid.presupuesto.adapters.ExpenseRecyclerAdapter;
 import com.armandroid.presupuesto.interfaces.ClickListener;
 import com.armandroid.presupuesto.interfaces.ViewListener;
 import com.armandroid.presupuesto.model.Budget;
-import com.armandroid.presupuesto.presenter.BudgetPresenterImpl;
+import com.armandroid.presupuesto.model.Expenses;
+import com.armandroid.presupuesto.presenter.CurdPresenterImpl;
 import com.armandroid.presupuesto.utils.Constants;
 import com.armandroid.presupuesto.utils.ScreenManager;
 import com.armandroid.presupuesto.utils.UtilFunctions;
 import com.txusballesteros.widgets.FitChart;
-
-import org.w3c.dom.Text;
 
 /**
  * Created by armando.dominguez on 29/12/2015.
@@ -42,8 +41,6 @@ public class FragmentBudgetDetail extends BaseFragment implements ViewListener, 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View budgetDetail = inflater.inflate(R.layout.fragment_budget_detail, container, false);
 
-        BudgetPresenterImpl budgetPresenter = new BudgetPresenterImpl(getContext(),this);
-
         recyclerExpenses    = (RecyclerView) budgetDetail.findViewById(R.id.recyclerDetail);
         budgetChartDetail   = (FitChart) budgetDetail.findViewById(R.id.budgetChartDetail);
         expenseFab          = (FloatingActionButton) budgetDetail.findViewById(R.id.toExpense);
@@ -52,7 +49,8 @@ public class FragmentBudgetDetail extends BaseFragment implements ViewListener, 
         detailBalance       = (TextView) budgetDetail.findViewById(R.id.textViewDetailBalance);
 
         if(mParam != null){
-            budgetPresenter.getBudgetDetail(((Budget)mParam).getId().intValue());
+            cpiObject = new CurdPresenterImpl(getContext(),this);
+            cpiObject.getBudgetDetail(((Budget) mParam).getId().intValue());
         }
 
         expenseFab.setOnClickListener(this);
@@ -75,7 +73,7 @@ public class FragmentBudgetDetail extends BaseFragment implements ViewListener, 
                     ScreenManager.screenChange(getActivity(),
                             R.id.mainActivityWrapper,
                             FragmentExpenseForm.class,
-                            budgetComplete,
+                            new Expenses(null,((Budget) mParam).getId().intValue(),null,null,0f,"",null ),
                             Constants.VIEW_EXPENSE,
                             Constants.BIN_FALSE);
                 } catch (IllegalAccessException e) {
@@ -95,17 +93,20 @@ public class FragmentBudgetDetail extends BaseFragment implements ViewListener, 
 
     @Override
     public void navigate(Object param) {
-        budgetComplete = (Budget)param;
 
-        detailTotal.setText(UtilFunctions.formatTwoDecimals(budgetComplete.getMoney()));
-        detailExpense.setText(UtilFunctions.formatTwoDecimals(budgetComplete.getBalance()));
-        detailBalance.setText(UtilFunctions.formatTwoDecimals(budgetComplete.getMoney() - budgetComplete.getBalance()));
 
-        budgetChartDetail.setMaxValue(budgetComplete.getMoney());
-        budgetChartDetail.setMinValue(0f);
+            budgetComplete = (Budget) param;
 
-        budgetChartDetail.setValue(budgetComplete.getBalance());
-    }
+            detailTotal.setText(UtilFunctions.formatTwoDecimals(budgetComplete.getMoney()));
+            detailExpense.setText(UtilFunctions.formatTwoDecimals(budgetComplete.getBalance()));
+            detailBalance.setText(UtilFunctions.formatTwoDecimals(budgetComplete.getMoney() - budgetComplete.getBalance()));
+
+            budgetChartDetail.setMaxValue(budgetComplete.getMoney());
+            budgetChartDetail.setMinValue(0f);
+
+            budgetChartDetail.setValue(budgetComplete.getBalance());
+        }
+
 
     @Override
     public void onClickLinkListener(int identifier) {
@@ -139,3 +140,4 @@ public class FragmentBudgetDetail extends BaseFragment implements ViewListener, 
         }
     }
 }
+

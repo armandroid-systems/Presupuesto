@@ -22,6 +22,7 @@ public class SplashActivity extends BaseActivity {
 
         List mUsers = ((CatWrapper)this.getApplication()).arrayUsers;
 
+
         if(!mUsers.isEmpty()){
             Log.d(TAG, "PARAM NOT NULL...");
             startActivity(new Intent(SplashActivity.this,

@@ -78,7 +78,7 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"
+                    android:inputType="text"
                     android:ems="10"
                     android:hint="@string/budget_desc_field"
                     android:id="@+id/editBudgetDesc" />
@@ -88,7 +88,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/save_button"
-                android:id="@+id/buttonSave" />
+                android:id="@+id/buttonSaveConf" />
         </LinearLayout>
 
     </ScrollView>

@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.armandroid.presupuesto.R;
 import com.armandroid.presupuesto.interfaces.ViewListener;
-import com.armandroid.presupuesto.presenter.ExpensePresenterImpl;
+import com.armandroid.presupuesto.presenter.CurdPresenterImpl;
 
 import java.util.List;
 
@@ -18,14 +18,17 @@ public class CatWrapper extends Application implements ViewListener{
     public List arrayTdc;
     public List arrayCategories;
     public List arrayUsers;
+    private CurdPresenterImpl cpi;
 
 
     @Override
     public void onCreate() {
         super.onCreate();
         Log.d(TAG,"GETTING CATALOGS...");
-        new ExpensePresenterImpl(getApplicationContext(),this).getCatalogsAndUsers(getResources().getStringArray(R.array.categories_array));
+        cpi  = new CurdPresenterImpl(getApplicationContext(),this);
+        cpi.getConfigData(getResources().getStringArray(R.array.categories_array));
     }
+
 
     @Override
     public void showMessage(String error) {

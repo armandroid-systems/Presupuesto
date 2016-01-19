@@ -2,7 +2,6 @@ package com.armandroid.presupuesto.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +15,7 @@ import com.armandroid.presupuesto.interfaces.ViewListener;
 import com.armandroid.presupuesto.model.Budget;
 import com.armandroid.presupuesto.model.MenuItem;
 import com.armandroid.presupuesto.model.Users;
-import com.armandroid.presupuesto.presenter.BudgetPresenter;
-import com.armandroid.presupuesto.presenter.BudgetPresenterImpl;
-import com.armandroid.presupuesto.presenter.UsersPresenterImpl;
+import com.armandroid.presupuesto.presenter.CurdPresenterImpl;
 import com.armandroid.presupuesto.utils.Constants;
 import com.armandroid.presupuesto.utils.ScreenManager;
 import com.armandroid.presupuesto.utils.UtilFunctions;
@@ -34,7 +31,6 @@ public class FragmentMenu extends BaseFragment implements AdapterView.OnItemClic
 
     private GridView mGrid;
     private FitChart budgetChartMain;
-    private BudgetPresenterImpl mPresenterImpl;
     private TextView textTotal;
     private TextView textExpenses;
     private TextView textBalance;
@@ -52,8 +48,6 @@ public class FragmentMenu extends BaseFragment implements AdapterView.OnItemClic
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View menuView = inflater.inflate(R.layout.fragment_menu,container,false);
 
-        mPresenterImpl = new BudgetPresenterImpl(getContext(),this);
-
         title           = (TextView) menuView.findViewById(R.id.textViewBudgetTitle);
         textTotal       = (TextView) menuView.findViewById(R.id.textViewTotal);
         textExpenses    = (TextView) menuView.findViewById(R.id.textViewExpenses);
@@ -62,7 +56,8 @@ public class FragmentMenu extends BaseFragment implements AdapterView.OnItemClic
         budgetChartMain = (FitChart) menuView.findViewById(R.id.budgetChart);
 
         if (mParam != null){
-            mPresenterImpl.getBudget(((Users) mParam).getId().intValue());
+            cpiObject = new CurdPresenterImpl(getContext(),this);
+            cpiObject.getBudget(((Users) mParam).getId().intValue());
         }
 
 

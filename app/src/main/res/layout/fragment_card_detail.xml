@@ -6,11 +6,17 @@
     android:layout_height="match_parent">
 
 
-    <Spinner
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinner4"
-        android:layout_gravity="center_horizontal" />
+        android:layout_height="wrap_content">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/card_amount_field"
+            android:inputType="text"
+            android:ems="10"
+            android:id="@+id/editTextTdcDesc" />
+    </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
@@ -21,25 +27,19 @@
             android:hint="@string/card_amount_field"
             android:inputType="number"
             android:ems="10"
-            android:id="@+id/editText5" />
+            android:id="@+id/editTextTdcMount" />
     </android.support.design.widget.TextInputLayout>
-    <RadioButton
+
+    <android.support.v7.widget.AppCompatCheckBox
         android:layout_width="match_parent"
         android:layout_marginTop="15dp"
         android:layout_height="wrap_content"
         android:text="@string/cardpay_check"
-        android:id="@+id/radioButton3" />
+        android:id="@+id/checkAddToCalendar" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/button3" />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/button4"
-        android:layout_gravity="center_horizontal" />
+        android:text="@string/save_button"
+        android:id="@+id/buttonSaveTdc" />
 </LinearLayout>

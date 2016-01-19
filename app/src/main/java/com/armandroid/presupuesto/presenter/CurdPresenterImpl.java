@@ -5,6 +5,7 @@ import android.content.Context;
 import com.armandroid.presupuesto.interactor.CurdBoussinesInteractorImpl;
 import com.armandroid.presupuesto.interfaces.BousinessCallback;
 import com.armandroid.presupuesto.interfaces.ViewListener;
+import com.armandroid.presupuesto.model.Users;
 
 /**
  * Created by armando.dominguez on 18/01/2016.
@@ -33,6 +34,26 @@ public class CurdPresenterImpl implements CurdPresenter, BousinessCallback{
     @Override
     public void updateARecord(Object param) {
        mExecutioner.updateARecord(param, this);
+    }
+
+    @Override
+    public void getConfigData(String[] params) {
+        mExecutioner.getConfigData(params, this);
+    }
+
+    @Override
+    public void insertConfigData(String desc, float mount, Users user) {
+        mExecutioner.insertConfigData(desc, mount, user, this);
+    }
+
+    @Override
+    public void getBudgetDetail(int keyBudget) {
+        mExecutioner.getBudgetDetail(keyBudget, this);
+    }
+
+    @Override
+    public void getBudget(int keyUser) {
+        mExecutioner.getBudget(keyUser,this);
     }
 
     @Override

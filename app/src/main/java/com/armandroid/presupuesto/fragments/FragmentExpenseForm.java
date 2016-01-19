@@ -15,12 +15,11 @@ import android.widget.Spinner;
 
 import com.armandroid.presupuesto.R;
 import com.armandroid.presupuesto.interfaces.ViewListener;
-import com.armandroid.presupuesto.model.Budget;
 import com.armandroid.presupuesto.model.CatWrapper;
 import com.armandroid.presupuesto.model.Categories;
 import com.armandroid.presupuesto.model.Expenses;
 import com.armandroid.presupuesto.model.Tdc;
-import com.armandroid.presupuesto.presenter.ExpensePresenterImpl;
+import com.armandroid.presupuesto.presenter.CurdPresenterImpl;
 
 /**
  * Created by armando.dominguez on 30/12/2015.
@@ -37,7 +36,6 @@ public class FragmentExpenseForm extends BaseFragment implements View.OnClickLis
     private CheckBox useCredit;
     private CheckBox monts;
     private Button   saveButton;
-    private ExpensePresenterImpl presenterExpense;
     private CatWrapper mData;
     private Expenses theExpense;
 
@@ -48,7 +46,6 @@ public class FragmentExpenseForm extends BaseFragment implements View.OnClickLis
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View expenseForm = inflater.inflate(R.layout.fragment_expense_form,container,false);
 
-        presenterExpense = new ExpensePresenterImpl(getContext(),this);
         mData = (CatWrapper)getActivity().getApplication();
         theExpense = new Expenses();
 
@@ -76,9 +73,9 @@ public class FragmentExpenseForm extends BaseFragment implements View.OnClickLis
         }
 
         if(mParam != null){
-            Expenses theData = (Expenses)mParam;
-            editDesc.setText(theData.getDescription());
-            editMounth.setText(theData.getMount().toString());
+            theExpense = (Expenses)mParam;
+            editDesc.setText(theExpense.getDescription());
+            editMounth.setText(theExpense.getMount().toString());
         }
 
         saveButton.setOnClickListener(this);
@@ -91,14 +88,13 @@ public class FragmentExpenseForm extends BaseFragment implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-
+        cpiObject = new CurdPresenterImpl(getContext(),this);
         switch(v.getId()){
             case R.id.buttonSaveExpense:
                 if(mParam != null){
                     theExpense.setMount(Float.parseFloat(editMounth.getText().toString()));
                     theExpense.setDescription(editDesc.getText().toString());
-                    theExpense.setIdBudget(((Budget)mParam).getId().intValue());
-                    presenterExpense.insertExpense(theExpense);
+                    cpiObject.insertRecord(theExpense);
                 }
                 break;
             default:
