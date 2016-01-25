@@ -10,6 +10,7 @@
     <string name="credit_check">Use credit</string>
     <string name="month_check">Use months</string>
     <string name="cardpay_check">Add pay day to calendar</string>
+    <string name="card_name_field">Bank or credit card name</string>
     <string name="card_amount_field">Credit amount</string>
     <string name="budget_desc_field">Budget description</string>
     <!--BUTTONS-->

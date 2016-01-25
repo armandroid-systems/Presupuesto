@@ -16,6 +16,9 @@ public class Tdc implements Parcelable{
     private Float expended;
 
     public Tdc() {
+        this.cardName = "";
+        this.credit = 0f;
+        this.expended = 0f;
     }
 
     public Tdc(Parcel in){

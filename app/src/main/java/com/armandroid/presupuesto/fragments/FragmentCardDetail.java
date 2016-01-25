@@ -26,6 +26,7 @@ public class FragmentCardDetail extends BaseFragment implements View.OnClickList
     private EditText editCardMount;
     private CheckBox toCalendar;
     private Button   saveData;
+    private Tdc      dataToSave;
 
 
     @Nullable
@@ -39,9 +40,9 @@ public class FragmentCardDetail extends BaseFragment implements View.OnClickList
         saveData        = (Button)   cardDetail.findViewById(R.id.buttonSaveTdc);
 
         if(mParam != null){
-            Tdc dataRetreived = (Tdc)mParam;
-            editCardName.setText(dataRetreived.getCardName());
-            editCardMount.setText(dataRetreived.getCredit().toString());
+            dataToSave = (Tdc)mParam;
+            editCardName.setText(dataToSave.getCardName());
+            editCardMount.setText(""+dataToSave.getCredit());
         }
 
         saveData.setOnClickListener(this);
@@ -52,9 +53,9 @@ public class FragmentCardDetail extends BaseFragment implements View.OnClickList
     @Override
     public void onClick(View v) {
         cpiObject = new CurdPresenterImpl(getContext(),this);
-        cpiObject.insertRecord(new Tdc(null,
-                editCardName.getText().toString(),
-                Float.parseFloat(editCardMount.getText().toString()),null));
+        dataToSave.setCardName(editCardName.getText().toString());
+        dataToSave.setCredit(Float.parseFloat(editCardMount.getText().toString()));
+        cpiObject.insertRecord(dataToSave);
     }
 
     @Override

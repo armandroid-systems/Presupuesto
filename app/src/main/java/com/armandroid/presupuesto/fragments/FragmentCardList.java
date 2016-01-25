@@ -59,7 +59,7 @@ public class FragmentCardList extends BaseFragment implements ClickListener, Vie
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.toCard:
-                toNewScreen(null);
+                toNewScreen(new Tdc());
                 break;
             default:
                 break;
