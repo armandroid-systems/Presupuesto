@@ -156,7 +156,7 @@ public class FragmentExpenseForm extends BaseFragment implements View.OnClickLis
     @Override
     public void navigate(Object param) {
         if(param != 0){
-            theExpense.setId((long)param+1);
+            theExpense.setId((long) param + 1);
         }
         editDesc.setText("");
         editMounth.setText("");

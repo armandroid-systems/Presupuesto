@@ -126,8 +126,8 @@ public class FragmentMenu extends BaseFragment implements AdapterView.OnItemClic
             float mBalance = results.get(0).getMoney()-results.get(0).getBalance();
             title.setText(getString(R.string.budget_title)+results.get(0).getDescription()+" "+results.get(0).getDate());
             textTotal.setText(getActivity().getString(R.string.budget_total)+ UtilFunctions.formatTwoDecimals(results.get(0).getMoney()));
-            textExpenses.setText(getActivity().getString(R.string.budget_balance)+UtilFunctions.formatTwoDecimals(results.get(0).getBalance()));
-            textBalance.setText(getActivity().getString(R.string.budget_expense) + UtilFunctions.formatTwoDecimals(mBalance));
+            textExpenses.setText(getActivity().getString(R.string.budget_balance)+UtilFunctions.formatTwoDecimals(mBalance));
+            textBalance.setText(getActivity().getString(R.string.budget_expense) + UtilFunctions.formatTwoDecimals(results.get(0).getBalance()));
 
             budgetChartMain.setMaxValue(results.get(0).getMoney());
             budgetChartMain.setMinValue(0f);
