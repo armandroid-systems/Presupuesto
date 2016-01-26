@@ -1,4 +1,4 @@
-package com.armandroid.presupuesto.interactor;
+package com.armandroid.presupuesto.interfaces;
 
 import com.armandroid.presupuesto.interfaces.BousinessCallback;
 import com.armandroid.presupuesto.model.Users;
