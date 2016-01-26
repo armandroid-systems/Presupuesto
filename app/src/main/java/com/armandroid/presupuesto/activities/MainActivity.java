@@ -13,7 +13,7 @@ import com.armandroid.presupuesto.utils.ScreenManager;
 public class MainActivity extends BaseActivity {
 
     private final static String TAG = MainActivity.class.getSimpleName();
-    private Users dataRetrieved;
+    //private Users dataRetrieved;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,13 +22,13 @@ public class MainActivity extends BaseActivity {
 
         if(findViewById(R.id.mainActivityWrapper) != null){
             if(savedInstanceState == null){
-                dataRetrieved = getIntent().getParcelableExtra(Constants.KEY_ACTIVITY_PARAM);
+                //dataRetrieved = getIntent().getLongExtra(Constants.KEY_ACTIVITY_PARAM,0l);
                 try {
 
                         ScreenManager.screenChange(MainActivity.this,
                                 R.id.mainActivityWrapper,
                                 FragmentMenu.class,
-                                dataRetrieved,
+                                getIntent().getExtras(),
                                 Constants.VIEW_MENU,
                                 Constants.BIN_TRUE);
 

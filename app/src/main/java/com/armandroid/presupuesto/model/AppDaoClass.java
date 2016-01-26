@@ -97,12 +97,14 @@ public class AppDaoClass<T> extends ConnectionFactory{
 
 
     public long insertBundle(String desc,float money, Object user) throws Exception{
-        return genericInsert(new MoneyEntry(
+        long idUser = genericInsert(user).intValue();
+        genericInsert(new MoneyEntry(
                 null, genericInsert(new Budget(
-                null, genericInsert(user).intValue(),
+                null, (int)idUser,
                 UtilFunctions.getCurrentDate(),
                 desc)).intValue(),
                 money, UtilFunctions.getCurrentDate()));
+        return idUser;
     }
 
     ////////////////////////BUDGET METHODS////////////////////////////////////

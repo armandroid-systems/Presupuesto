@@ -13,15 +13,17 @@ import android.widget.EditText;
 
 import com.armandroid.presupuesto.R;
 import com.armandroid.presupuesto.activities.MainActivity;
+import com.armandroid.presupuesto.interfaces.BudgetForm;
 import com.armandroid.presupuesto.interfaces.ViewListener;
 import com.armandroid.presupuesto.model.Users;
+import com.armandroid.presupuesto.presenter.BudgetFormPresenterImpl;
 import com.armandroid.presupuesto.presenter.CurdPresenterImpl;
 import com.armandroid.presupuesto.utils.Constants;
 
 /**
  * Created by armando.dominguez on 29/12/2015.
  */
-public class FragmentConfiguration extends BaseFragment implements View.OnClickListener, ViewListener {
+public class FragmentConfiguration extends BaseFragment implements View.OnClickListener, BudgetForm {
     private final static String TAG = FragmentConfiguration.class.getSimpleName();
 
     private Button buttonSave;
@@ -31,6 +33,7 @@ public class FragmentConfiguration extends BaseFragment implements View.OnClickL
     private EditText editBudgetDesc;
 
     private Users object;
+    private BudgetFormPresenterImpl budgetFormPresenter;
 
     @Nullable
     @Override
@@ -45,28 +48,33 @@ public class FragmentConfiguration extends BaseFragment implements View.OnClickL
 
         buttonSave.setOnClickListener(this);
 
+        budgetFormPresenter = new BudgetFormPresenterImpl(getActivity(),this);
+
         return configurationVew;
     }
 
     @Override
     public void onClick(View v) {
         Log.d(TAG,"CLICK RECEIVED...");
-        cpiObject = new CurdPresenterImpl(getContext(),this);
+        //cpiObject = new CurdPresenterImpl(getContext(),this);
         switch(v.getId()){
             case R.id.buttonSaveConf:
                 object = new Users(null,
                                 editName.getText().toString(),
                                 editMail.getText().toString());
-                cpiObject.insertConfigData(editBudgetDesc.getText().toString(),
+                budgetFormPresenter.saveBudgetInformation(editBudgetDesc.getText().toString(),
                         Float.parseFloat(editAmmount.getText().toString()),
                         object);
+                /*cpiObject.insertConfigData(editBudgetDesc.getText().toString(),
+                        Float.parseFloat(editAmmount.getText().toString()),
+                        object);*/
 
                 break;
             default:
                 break;
         }
     }
-
+/*
     @Override
     public void showMessage(String error) {
         Log.e(TAG, "INPUT ERROR...");
@@ -78,5 +86,20 @@ public class FragmentConfiguration extends BaseFragment implements View.OnClickL
         object.setId((long)param);
         startActivity(new Intent(getActivity(), MainActivity.class).putExtra(Constants.KEY_ACTIVITY_PARAM,object));
         getActivity().finish();
+    }*/
+
+    @Override
+    public boolean validateData() {
+        boolean flag = false;
+        if(!editBudgetDesc.getText().toString().isEmpty() && !editAmmount.getText().toString().isEmpty()){
+            flag = true;
+
+        }
+        return flag;
+    }
+
+    @Override
+    public void showNotificationMessage() {
+
     }
 }

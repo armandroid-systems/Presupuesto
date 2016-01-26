@@ -3,6 +3,7 @@ package com.armandroid.presupuesto.interactor;
 import android.content.Context;
 
 import com.armandroid.presupuesto.interfaces.BousinessCallback;
+import com.armandroid.presupuesto.interfaces.CurdBoussinesInteractor;
 import com.armandroid.presupuesto.model.AppDaoClass;
 import com.armandroid.presupuesto.model.Budget;
 import com.armandroid.presupuesto.model.Users;
@@ -10,7 +11,7 @@ import com.armandroid.presupuesto.model.Users;
 /**
  * Created by armando.dominguez on 18/01/2016.
  */
-public class CurdBoussinesInteractorImpl implements CurdBoussinesInteractor{
+public class CurdBoussinesInteractorImpl implements CurdBoussinesInteractor {
     private final static String TAG = CurdBoussinesInteractorImpl.class.getSimpleName();
 
     private AppDaoClass mDao;
