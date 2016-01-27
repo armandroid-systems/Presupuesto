@@ -22,9 +22,11 @@ public class Constants {
     public final static int BIN_FALSE = 0;
 
     //MENU OPTIONS
-
     public static final int OPTION_BUDGET = 1;
     public static final int OPTION_CARD = 2;
+    //OP CARD
+    public static final int OPTION_EDIT = 3;
+    public static final int OPTION_DELETE = 4;
 
 
 }

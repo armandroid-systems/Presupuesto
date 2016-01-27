@@ -12,10 +12,15 @@ import android.widget.TextView;
 
 import com.armandroid.presupuesto.R;
 import com.armandroid.presupuesto.adapters.ExpenseRecyclerAdapter;
+import com.armandroid.presupuesto.interactor.CurdBoussinesInteractorImpl;
+import com.armandroid.presupuesto.interfaces.BudgetDetailView;
 import com.armandroid.presupuesto.interfaces.ClickListener;
+import com.armandroid.presupuesto.interfaces.CurdBoussinesInteractor;
 import com.armandroid.presupuesto.interfaces.ViewListener;
 import com.armandroid.presupuesto.model.Budget;
 import com.armandroid.presupuesto.model.Expenses;
+import com.armandroid.presupuesto.presenter.BudgetDetailViewPresenterImpl;
+import com.armandroid.presupuesto.presenter.BudgetHistoryViewPresenterImpl;
 import com.armandroid.presupuesto.presenter.CurdPresenterImpl;
 import com.armandroid.presupuesto.utils.Constants;
 import com.armandroid.presupuesto.utils.ScreenManager;
@@ -25,7 +30,7 @@ import com.txusballesteros.widgets.FitChart;
 /**
  * Created by armando.dominguez on 29/12/2015.
  */
-public class FragmentBudgetDetail extends BaseFragment implements ViewListener, View.OnClickListener, ClickListener{
+public class FragmentBudgetDetail extends BaseFragment implements BudgetDetailView, View.OnClickListener{
 
     private FitChart budgetChartDetail;
     private RecyclerView recyclerExpenses;
@@ -35,11 +40,15 @@ public class FragmentBudgetDetail extends BaseFragment implements ViewListener, 
     private TextView detailBalance;
     private Budget budgetComplete;
 
+    private BudgetDetailViewPresenterImpl budgetDetailPresenter;
+
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View budgetDetail = inflater.inflate(R.layout.fragment_budget_detail, container, false);
+
+        budgetDetailPresenter = new BudgetDetailViewPresenterImpl(new CurdBoussinesInteractorImpl(getActivity()), this);
 
         recyclerExpenses    = (RecyclerView) budgetDetail.findViewById(R.id.recyclerDetail);
         budgetChartDetail   = (FitChart) budgetDetail.findViewById(R.id.budgetChartDetail);
@@ -48,96 +57,87 @@ public class FragmentBudgetDetail extends BaseFragment implements ViewListener, 
         detailExpense       = (TextView) budgetDetail.findViewById(R.id.textViewDetailExpense);
         detailBalance       = (TextView) budgetDetail.findViewById(R.id.textViewDetailBalance);
 
+
+
         if(mParam != null){
-            cpiObject = new CurdPresenterImpl(getContext(),this);
-            cpiObject.getBudgetDetail(((Budget) mParam).getId().intValue());
+            budgetDetailPresenter.getBudgetDetail((Long)mParam);
         }
 
         expenseFab.setOnClickListener(this);
 
-        LinearLayoutManager llm = new LinearLayoutManager(getContext());
 
-        recyclerExpenses.setHasFixedSize(true);
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerExpenses.setLayoutManager(llm);
-        recyclerExpenses.setAdapter(new ExpenseRecyclerAdapter(budgetComplete.getBudgetExpenses(), this));
 
         return budgetDetail;
     }
 
     @Override
     public void onClick(View v) {
-        switch(v.getId()){
-            case R.id.toExpense:
-                try {
-                    ScreenManager.screenChange(getActivity(),
-                            R.id.mainActivityWrapper,
-                            FragmentExpenseForm.class,
-                            new Expenses(null,((Budget) mParam).getId().intValue(),null,null,0f,"",null ),
-                            Constants.VIEW_EXPENSE,
-                            Constants.BIN_FALSE);
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                } catch (java.lang.InstantiationException e) {
-                    e.printStackTrace();
-                }
-                break;
-            default:
-                break;
+        budgetDetailPresenter.onClickResponse(v.getId());
+    }
+
+    @Override
+    public void goToAddExpense() {
+        try {
+            ScreenManager.screenChange(getActivity(),
+                    R.id.mainActivityWrapper,
+                    FragmentExpenseForm.class,
+                    new Expenses(null,((Long) mParam).intValue(),null,null,0f,"",null ),
+                    Constants.VIEW_EXPENSE,
+                    Constants.BIN_FALSE);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (java.lang.InstantiationException e) {
+            e.printStackTrace();
         }
     }
 
     @Override
-    public void showMessage(String error) {
+    public void goToExpense(long idExpense) {
+        try {
+            ScreenManager.screenChange(getActivity(),
+                    R.id.mainActivityWrapper,
+                    FragmentExpenseForm.class,
+                    budgetComplete.getBudgetExpenses()[0],
+                    Constants.VIEW_EXPENSE,
+                    Constants.BIN_FALSE);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (java.lang.InstantiationException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public void navigate(Object param) {
-
-
-            budgetComplete = (Budget) param;
-
-            detailTotal.setText(UtilFunctions.formatTwoDecimals(budgetComplete.getMoney()));
-            detailExpense.setText(UtilFunctions.formatTwoDecimals(budgetComplete.getBalance()));
-            detailBalance.setText(UtilFunctions.formatTwoDecimals(budgetComplete.getMoney() - budgetComplete.getBalance()));
-
-            budgetChartDetail.setMaxValue(budgetComplete.getMoney());
-            budgetChartDetail.setMinValue(0f);
-
-            budgetChartDetail.setValue(budgetComplete.getBalance());
-        }
-
-
-    @Override
-    public void onClickLinkListener(int identifier) {
+    public void showMessageState(String message) {
 
     }
 
     @Override
-    public void actionClickListener(int identifier, int operation) {
-        if(operation != 0){
-            switch(operation){
-                case 1:
-                    try {
-                        ScreenManager.screenChange(getActivity(),
-                                R.id.mainActivityWrapper,
-                                FragmentExpenseForm.class,
-                                budgetComplete.getBudgetExpenses()[identifier],
-                                Constants.VIEW_EXPENSE,
-                                Constants.BIN_FALSE);
-                    } catch (IllegalAccessException e) {
-                        e.printStackTrace();
-                    } catch (java.lang.InstantiationException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                case 2:
-                    //ELIMINAR GASTO
-                    break;
-                default:
-                    break;
-            }
-        }
+    public void createRecyclerExpenses(ExpenseRecyclerAdapter expenseAdapter) {
+        LinearLayoutManager llm = new LinearLayoutManager(getContext());
+
+        recyclerExpenses.setHasFixedSize(true);
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerExpenses.setLayoutManager(llm);
+        recyclerExpenses.setAdapter(expenseAdapter);
+    }
+
+    @Override
+    public ExpenseRecyclerAdapter getExpenseAdapter(Expenses[] data, ClickListener listener) {
+        return new ExpenseRecyclerAdapter(data, listener);
+    }
+
+    @Override
+    public void setGraphData(Budget param) {
+
+        detailTotal.setText(UtilFunctions.formatTwoDecimals(param.getMoney()));
+        detailExpense.setText(UtilFunctions.formatTwoDecimals(param.getBalance()));
+        detailBalance.setText(UtilFunctions.formatTwoDecimals(param.getMoney() - param.getBalance()));
+
+        budgetChartDetail.setMaxValue(param.getMoney());
+        budgetChartDetail.setMinValue(0f);
+
+        budgetChartDetail.setValue(param.getBalance());
     }
 }
 

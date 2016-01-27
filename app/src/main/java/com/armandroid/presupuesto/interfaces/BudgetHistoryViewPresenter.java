@@ -5,6 +5,6 @@ package com.armandroid.presupuesto.interfaces;
  */
 public interface BudgetHistoryViewPresenter {
 
-    void onElementClicked(ClickListener listener);
+    void onElementClicked(int viewId);
     void getBudgets(int idUser);
 }

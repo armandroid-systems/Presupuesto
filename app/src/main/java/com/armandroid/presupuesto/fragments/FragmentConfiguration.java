@@ -13,11 +13,10 @@ import android.widget.EditText;
 
 import com.armandroid.presupuesto.R;
 import com.armandroid.presupuesto.activities.MainActivity;
+import com.armandroid.presupuesto.interactor.CurdBoussinesInteractorImpl;
 import com.armandroid.presupuesto.interfaces.BudgetForm;
-import com.armandroid.presupuesto.interfaces.ViewListener;
 import com.armandroid.presupuesto.model.Users;
 import com.armandroid.presupuesto.presenter.BudgetFormPresenterImpl;
-import com.armandroid.presupuesto.presenter.CurdPresenterImpl;
 import com.armandroid.presupuesto.utils.Constants;
 
 /**
@@ -48,7 +47,7 @@ public class FragmentConfiguration extends BaseFragment implements View.OnClickL
 
         buttonSave.setOnClickListener(this);
 
-        budgetFormPresenter = new BudgetFormPresenterImpl(getActivity(),this);
+        budgetFormPresenter = new BudgetFormPresenterImpl(new CurdBoussinesInteractorImpl(getActivity()),this);
 
         return configurationVew;
     }
@@ -56,7 +55,6 @@ public class FragmentConfiguration extends BaseFragment implements View.OnClickL
     @Override
     public void onClick(View v) {
         Log.d(TAG,"CLICK RECEIVED...");
-        //cpiObject = new CurdPresenterImpl(getContext(),this);
         switch(v.getId()){
             case R.id.buttonSaveConf:
                 object = new Users(null,
@@ -65,28 +63,11 @@ public class FragmentConfiguration extends BaseFragment implements View.OnClickL
                 budgetFormPresenter.saveBudgetInformation(editBudgetDesc.getText().toString(),
                         Float.parseFloat(editAmmount.getText().toString()),
                         object);
-                /*cpiObject.insertConfigData(editBudgetDesc.getText().toString(),
-                        Float.parseFloat(editAmmount.getText().toString()),
-                        object);*/
-
                 break;
             default:
                 break;
         }
     }
-/*
-    @Override
-    public void showMessage(String error) {
-        Log.e(TAG, "INPUT ERROR...");
-    }
-
-    @Override
-    public void navigate(Object param) {
-        Log.d(TAG, "INSERTION 0k ID[" + param + "]");
-        object.setId((long)param);
-        startActivity(new Intent(getActivity(), MainActivity.class).putExtra(Constants.KEY_ACTIVITY_PARAM,object));
-        getActivity().finish();
-    }*/
 
     @Override
     public boolean validateData() {
@@ -99,7 +80,14 @@ public class FragmentConfiguration extends BaseFragment implements View.OnClickL
     }
 
     @Override
-    public void showNotificationMessage() {
+    public void showNotificationMessage(String message) {
+        Log.d(TAG,"WHAT IS HAPPENING"+message);
+    }
 
+    @Override
+    public void goToMenu(long id) {
+        startActivity(new Intent(getActivity(),
+                MainActivity.class).putExtra(Constants.KEY_PARAMS_FRAGMENT,id));
+        getActivity().finish();
     }
 }

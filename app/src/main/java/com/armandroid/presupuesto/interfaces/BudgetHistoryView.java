@@ -10,5 +10,6 @@ public interface BudgetHistoryView {
 
     BudgetRecyclerAdapter getBudgetAdapter(Budget[] elements, ClickListener listener);
     void createRecyclerView(BudgetRecyclerAdapter adapter);
-
+    void goToDetail(int id);
+    void goToBudgetForm();
 }

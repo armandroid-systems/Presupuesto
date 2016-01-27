@@ -5,59 +5,84 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.armandroid.presupuesto.R;
 import com.armandroid.presupuesto.adapters.BudgetRecyclerAdapter;
+import com.armandroid.presupuesto.interactor.CurdBoussinesInteractorImpl;
+import com.armandroid.presupuesto.interfaces.BudgetHistoryView;
 import com.armandroid.presupuesto.interfaces.ClickListener;
-import com.armandroid.presupuesto.interfaces.ViewListener;
 import com.armandroid.presupuesto.model.Budget;
-import com.armandroid.presupuesto.model.Users;
-import com.armandroid.presupuesto.presenter.CurdPresenterImpl;
+import com.armandroid.presupuesto.presenter.BudgetHistoryViewPresenterImpl;
 import com.armandroid.presupuesto.utils.Constants;
 import com.armandroid.presupuesto.utils.ScreenManager;
-
-import java.util.List;
 
 /**
  * Created by armando.dominguez on 29/12/2015.
  */
-public class FragmentBudgetHistory extends BaseFragment implements ViewListener, ClickListener,View.OnClickListener {
+public class FragmentBudgetHistory extends BaseFragment implements BudgetHistoryView, View.OnClickListener {
+    private final static String TAG = FragmentBudgetHistory.class.getSimpleName();
 
-    private Budget[] budgetArray;
     private RecyclerView mRecycler;
     private FloatingActionButton budgetFab;
+    private BudgetHistoryViewPresenterImpl budgetPresenter;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View budgetHistory = inflater.inflate(R.layout.fragment_budget, container, false);
 
+        budgetPresenter = new BudgetHistoryViewPresenterImpl(new CurdBoussinesInteractorImpl(getActivity()),this);
+
         mRecycler = (RecyclerView) budgetHistory.findViewById(R.id.recyclerBudget);
         budgetFab = (FloatingActionButton) budgetHistory.findViewById(R.id.toBudget);
 
         budgetFab.setOnClickListener(this);
-        LinearLayoutManager llm = new LinearLayoutManager(getContext());
 
-        mRecycler.setLayoutManager(llm);
         if(mParam != null){
-            cpiObject = new CurdPresenterImpl(getContext(),this);
-            cpiObject.getBudget(((Users) mParam).getId().intValue());
+            budgetPresenter.getBudgets(((Long)mParam).intValue());
         }
-        mRecycler.setAdapter(new BudgetRecyclerAdapter(budgetArray,this));
 
         return budgetHistory;
     }
 
+
     @Override
-    public void onClickLinkListener(int identifier) {
+    public void onClick(View v) {
+        budgetPresenter.onElementClicked(v.getId());
+    }
+
+    @Override
+    public void createRecyclerView(BudgetRecyclerAdapter adapter) {
+        Log.d(TAG,"Reach the create method...");
+        LinearLayoutManager llm = new LinearLayoutManager(getContext());
+        mRecycler.setLayoutManager(llm);
+        mRecycler.setAdapter(adapter);
+    }
+
+    @Override
+    public BudgetRecyclerAdapter getBudgetAdapter(Budget[] elements, ClickListener listener) {
+        Log.d(TAG,"SIZE ELEMENTS"+elements.length);
+        return new BudgetRecyclerAdapter(elements,listener);
+    }
+
+    @Override
+    public void goToBudgetForm() {
+
+    }
+
+    @Override
+    public void goToDetail(int id) {
+        Bundle mBundle = new Bundle();
+        mBundle.putInt(Constants.KEY_PARAMS_FRAGMENT,id);
         try {
             ScreenManager.screenChange(getActivity(),
                     R.id.mainActivityWrapper,
                     FragmentBudgetDetail.class,
-                    budgetArray[identifier],
+                    mBundle,
                     Constants.VIEW_BUDGET_DET,
                     Constants.BIN_FALSE);
         } catch (IllegalAccessException e) {
@@ -65,32 +90,5 @@ public class FragmentBudgetHistory extends BaseFragment implements ViewListener,
         } catch (java.lang.InstantiationException e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch(v.getId()){
-            case R.id.toBudget:
-                break;
-            default:
-                break;
-        }
-    }
-
-    @Override
-    public void showMessage(String error) {
-
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public void navigate(Object param) {
-        budgetArray = new Budget[((List<Budget>)param).size()];
-        ((List<Budget>)param).toArray(budgetArray);
-    }
-
-    @Override
-    public void actionClickListener(int identifier, int operation) {
-
     }
 }

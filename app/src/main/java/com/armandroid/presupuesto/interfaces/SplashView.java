@@ -6,5 +6,7 @@ package com.armandroid.presupuesto.interfaces;
 public interface SplashView {
     void showProgress();
     void hideProgress();
-    void showNotificationMessage();
+    void showNotificationMessage(String message);
+    void goIntro();
+    void goMain(long idUser);
 }
