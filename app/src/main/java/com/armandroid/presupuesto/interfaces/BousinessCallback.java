@@ -6,5 +6,6 @@ package com.armandroid.presupuesto.interfaces;
 public interface BousinessCallback {
 
     void onSucces(Object param);
+    void onSuccesInsert(Object param);
     void onError(Object param);
 }

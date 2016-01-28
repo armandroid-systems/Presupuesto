@@ -18,6 +18,7 @@ public class BudgetHistoryViewPresenterImpl implements BudgetHistoryViewPresente
 
     private BudgetHistoryView budgetHistoryView;
     private CurdBoussinesInteractorImpl historyInteractor;
+    private Budget[] budgetArray;
 
     public BudgetHistoryViewPresenterImpl(CurdBoussinesInteractorImpl interactor, BudgetHistoryView bhv) {
         this.budgetHistoryView = bhv;
@@ -43,10 +44,15 @@ public class BudgetHistoryViewPresenterImpl implements BudgetHistoryViewPresente
     @Override
     @SuppressWarnings("unchecked")
     public void onSucces(Object param) {
-       Budget[] budgetArray = new Budget[((List<Budget>) param).size()];
+       budgetArray = new Budget[((List<Budget>) param).size()];
        ((List<Budget>)param).toArray(budgetArray);
         budgetHistoryView.createRecyclerView(budgetHistoryView.getBudgetAdapter(budgetArray,this));
 
+
+    }
+
+    @Override
+    public void onSuccesInsert(Object param) {
 
     }
 
@@ -57,7 +63,7 @@ public class BudgetHistoryViewPresenterImpl implements BudgetHistoryViewPresente
 
     @Override
     public void onClickLinkListener(int identifier) {
-        budgetHistoryView.goToDetail(identifier);
+        budgetHistoryView.goToDetail(budgetArray[identifier].getId().intValue());
     }
 
     @Override

@@ -16,6 +16,7 @@ public class BudgetDetailViewPresenterImpl implements BudgetDetailViewPresenter,
 
     private CurdBoussinesInteractorImpl interactor;
     private BudgetDetailView budgetDetailView;
+    private Budget theBudget;
 
     public BudgetDetailViewPresenterImpl(CurdBoussinesInteractorImpl interactor, BudgetDetailView budgetDetailView) {
         this.interactor = interactor;
@@ -23,8 +24,8 @@ public class BudgetDetailViewPresenterImpl implements BudgetDetailViewPresenter,
     }
 
     @Override
-    public void getBudgetDetail(long idBudget) {
-        interactor.getBudgetDetail((int)idBudget,this);
+    public void getBudgetDetail(int idBudget) {
+        interactor.getBudgetDetail(idBudget,this);
     }
 
     @Override
@@ -47,7 +48,7 @@ public class BudgetDetailViewPresenterImpl implements BudgetDetailViewPresenter,
     public void actionClickListener(int identifier, int operation) {
         switch(operation){
             case 1:
-                budgetDetailView.goToExpense(0l);
+                budgetDetailView.goToExpense(theBudget.getBudgetExpenses()[identifier]);
                 break;
             case 2:
                 //ELIMINAR GASTO
@@ -59,10 +60,15 @@ public class BudgetDetailViewPresenterImpl implements BudgetDetailViewPresenter,
 
     @Override
     public void onSucces(Object param) {
-        Budget theBudget = (Budget)param;
+        theBudget = (Budget)param;
         budgetDetailView.createRecyclerExpenses(
                 budgetDetailView.getExpenseAdapter(theBudget.getBudgetExpenses(),this));
         budgetDetailView.setGraphData(theBudget);
+    }
+
+    @Override
+    public void onSuccesInsert(Object param) {
+
     }
 
     @Override

@@ -13,6 +13,6 @@ public interface BudgetDetailView {
     ExpenseRecyclerAdapter getExpenseAdapter(Expenses[] data, ClickListener listener);
     void createRecyclerExpenses(ExpenseRecyclerAdapter expenseAdapter);
     void showMessageState(String message);
-    void goToExpense(long idExpense);
+    void goToExpense(Expenses expense);
     void goToAddExpense();
 }

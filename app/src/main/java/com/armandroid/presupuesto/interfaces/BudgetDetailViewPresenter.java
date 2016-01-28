@@ -5,6 +5,6 @@ package com.armandroid.presupuesto.interfaces;
  */
 public interface BudgetDetailViewPresenter {
 
-    void getBudgetDetail(long idBudget);
+    void getBudgetDetail(int idBudget);
     void onClickResponse(int viewId);
 }

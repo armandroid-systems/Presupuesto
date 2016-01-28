@@ -39,6 +39,11 @@ public class MenuViewPresenterImpl implements MenuViewPresenter, BousinessCallba
     }
 
     @Override
+    public void onSuccesInsert(Object param) {
+
+    }
+
+    @Override
     public void onError(Object param) {
         mv.showMessage();
     }

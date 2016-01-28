@@ -46,14 +46,16 @@ public class SplashActivity extends BaseActivity implements SplashView{
 
     @Override
     public void goMain(long idUser) {
+        Log.d(TAG,"GOING MAIN...");
         startActivity(new Intent(SplashActivity.this, MainActivity.class).
                     putExtra(Constants.KEY_PARAMS_FRAGMENT,
                             idUser));
-          finish();
+        finish();
     }
 
     @Override
     public void goIntro() {
+        Log.d(TAG,"GOING INTRO...");
          startActivity(new Intent(SplashActivity.this, IntroActivity.class));
          finish();
     }

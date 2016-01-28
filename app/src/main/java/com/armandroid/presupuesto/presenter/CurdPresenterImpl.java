@@ -62,6 +62,11 @@ public class CurdPresenterImpl implements CurdPresenter, BousinessCallback{
     }
 
     @Override
+    public void onSuccesInsert(Object param) {
+
+    }
+
+    @Override
     public void onError(Object param) {
         mViewListener.showMessage((String)param);
     }

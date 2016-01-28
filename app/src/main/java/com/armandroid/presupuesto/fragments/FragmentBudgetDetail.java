@@ -60,7 +60,7 @@ public class FragmentBudgetDetail extends BaseFragment implements BudgetDetailVi
 
 
         if(mParam != null){
-            budgetDetailPresenter.getBudgetDetail((Long)mParam);
+            budgetDetailPresenter.getBudgetDetail((int)mParam);
         }
 
         expenseFab.setOnClickListener(this);
@@ -77,11 +77,13 @@ public class FragmentBudgetDetail extends BaseFragment implements BudgetDetailVi
 
     @Override
     public void goToAddExpense() {
+        Bundle transport = new Bundle();
+        transport.putParcelable(Constants.KEY_PARAMS_FRAGMENT,new Expenses(null,(int)mParam,0,0,0f,"",0 ));
         try {
             ScreenManager.screenChange(getActivity(),
                     R.id.mainActivityWrapper,
                     FragmentExpenseForm.class,
-                    new Expenses(null,((Long) mParam).intValue(),null,null,0f,"",null ),
+                    transport,
                     Constants.VIEW_EXPENSE,
                     Constants.BIN_FALSE);
         } catch (IllegalAccessException e) {
@@ -92,12 +94,14 @@ public class FragmentBudgetDetail extends BaseFragment implements BudgetDetailVi
     }
 
     @Override
-    public void goToExpense(long idExpense) {
+    public void goToExpense(Expenses expense) {
+        Bundle transport = new Bundle();
+        transport.putParcelable(Constants.KEY_PARAMS_FRAGMENT,expense);
         try {
             ScreenManager.screenChange(getActivity(),
                     R.id.mainActivityWrapper,
                     FragmentExpenseForm.class,
-                    budgetComplete.getBudgetExpenses()[0],
+                    transport,
                     Constants.VIEW_EXPENSE,
                     Constants.BIN_FALSE);
         } catch (IllegalAccessException e) {

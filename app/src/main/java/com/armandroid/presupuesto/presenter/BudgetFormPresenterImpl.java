@@ -36,6 +36,11 @@ public class BudgetFormPresenterImpl implements BudgetFormPresenter, BousinessCa
     }
 
     @Override
+    public void onSuccesInsert(Object param) {
+
+    }
+
+    @Override
     public void onError(Object param) {
         budgetForm.showNotificationMessage((String)param);
     }
