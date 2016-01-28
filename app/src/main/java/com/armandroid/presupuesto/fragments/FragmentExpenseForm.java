@@ -46,7 +46,7 @@ public class FragmentExpenseForm extends BaseFragment implements View.OnClickLis
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View expenseForm = inflater.inflate(R.layout.fragment_expense_form,container,false);
-
+//hi
         mData = new CatWrapper();//(CatWrapper)getActivity().getApplication();
         theExpense = new Expenses();
 
