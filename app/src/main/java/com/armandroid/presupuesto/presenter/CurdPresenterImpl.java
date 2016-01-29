@@ -53,7 +53,7 @@ public class CurdPresenterImpl implements CurdPresenter, BousinessCallback{
 
     @Override
     public void getBudget(int keyUser) {
-        mExecutioner.getBudget(keyUser,this);
+        mExecutioner.getBudget(keyUser, this);
     }
 
     @Override
@@ -62,7 +62,12 @@ public class CurdPresenterImpl implements CurdPresenter, BousinessCallback{
     }
 
     @Override
-    public void onSuccesInsert(Object param) {
+    public void onSuccesInsert(long idInsert) {
+
+    }
+
+    @Override
+    public void onSuccessUpdate(boolean updateState) {
 
     }
 

@@ -52,7 +52,12 @@ public class BudgetHistoryViewPresenterImpl implements BudgetHistoryViewPresente
     }
 
     @Override
-    public void onSuccesInsert(Object param) {
+    public void onSuccesInsert(long idInsert) {
+
+    }
+
+    @Override
+    public void onSuccessUpdate(boolean updateState) {
 
     }
 

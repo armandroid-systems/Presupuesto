@@ -39,7 +39,23 @@ public class ExpenseFormViewPresenterImpl implements ExpenseFormViewPresenter, B
     @Override
     public void saveExpense(Expenses expense) {
         if(validateExpense(expense)){
-            interactor.insertRecord(expense,this);
+            if(expense.getId() == 0l){
+                expense.setId(null);
+                interactor.insertRecord(expense,this);
+                expense.setId(0l);
+            }else{
+                interactor.updateARecord(expense,this);
+                expense.setId(0l);
+            }
+        }else{
+            expenseView.showMessageState("WRONG");
+        }
+    }
+
+    @Override
+    public void updateExpense(Expenses expense) {
+        if(validateExpense(expense)){
+            interactor.updateARecord(expense, this);
         }else{
             expenseView.showMessageState("WRONG");
         }
@@ -49,49 +65,60 @@ public class ExpenseFormViewPresenterImpl implements ExpenseFormViewPresenter, B
     public void onSucces(Object param) {
         dataPack = (CatWrapper)param;
         expenseView.setCategoriesData(dataPack.arrayCategories);
+        expenseView.setMonthsData();
+        expenseView.hideCheckMonths();
         if(!dataPack.arrayTdc.isEmpty()) {
             expenseView.setCardData(dataPack.arrayTdc);
             expenseView.showCheckCredit();
         }else{
             expenseView.hideCheckCredit();
-
         }
 
     }
 
     @Override
+    public void onSuccesInsert(long param) {
+        expenseView.cleanFields();
+    }
+
+    @Override
+    public void onSuccessUpdate(boolean updateState) {
+        if(updateState){
+            expenseView.showMessageState("DONE");
+            expenseView.cleanFields();
+        }else{
+            expenseView.showMessageState("FAIL");
+        }
+    }
+
+    @Override
     public void onCheckedChange(int viewId, Expenses expense, boolean state) {
-        expenseView.onCheckedButton(viewId,expense,state);
+        expenseView.onCheckedButton(viewId, expense, state);
     }
 
     @Override
     public void onSpinnerItemClicked(int viewId, Expenses expense, int position) {
-        expenseView.onSpinnerItemSelected(viewId,expense,position);
+        expenseView.onSpinnerItemSelected(viewId, expense, position);
     }
 
     @Override
     public void onSavePressed(int viewId, Expenses expense) {
-        expenseView.onClickPressed(viewId,expense);
+        expenseView.onClickPressed(viewId, expense);
     }
 
     @Override
     public void setCategorie(Expenses expense, int position) {
-        expense.setIdCategory(((Categories)dataPack.arrayCategories.get(position)).getId().intValue());
+        expense.setIdCategory(((Categories) dataPack.arrayCategories.get(position)).getId().intValue());
     }
 
     @Override
     public void setCard(Expenses expense, int position) {
-        expense.setIdCategory(((Tdc)dataPack.arrayTdc.get(position)).getId().intValue());
+        expense.setIdCategory(((Tdc) dataPack.arrayTdc.get(position)).getId().intValue());
     }
 
     @Override
     public void setMonths(Expenses expense, int position) {
         expense.setMonths(position);
-    }
-
-    @Override
-    public void onSuccesInsert(Object param) {
-        expenseView.cleanFields();
     }
 
     @Override

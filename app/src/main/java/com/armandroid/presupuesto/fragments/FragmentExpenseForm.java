@@ -2,6 +2,7 @@ package com.armandroid.presupuesto.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,6 +67,7 @@ public class FragmentExpenseForm extends BaseFragment implements View.OnClickLis
         if(mParam != null){
             theExpense = (Expenses)mParam;
             expensePresenter.putFormDataIfExists(theExpense);
+            Log.d(TAG, "THIS IS THE FUCKING ID" + theExpense.getId());
         }
 
         saveButton.setOnClickListener(this);
@@ -103,11 +105,9 @@ public class FragmentExpenseForm extends BaseFragment implements View.OnClickLis
     public void onClickPressed(int viewId, Expenses expense) {
         switch(viewId){
             case R.id.buttonSaveExpense:
-                if(mParam != null){
-                    expense.setMount(Float.parseFloat(editMounth.getText().toString()));
-                    expense.setDescription(editDesc.getText().toString());
-                    expensePresenter.saveExpense(expense);
-                }
+                expense.setMount(Float.parseFloat(editMounth.getText().toString()));
+                expense.setDescription(editDesc.getText().toString());
+                expensePresenter.saveExpense(expense);
                 break;
             default:
                 break;
@@ -140,6 +140,7 @@ public class FragmentExpenseForm extends BaseFragment implements View.OnClickLis
                         showSpinnerMonths();
                     }else{
                         hideSpinnerMonths();
+                        expense.setMonths(0);
                     }
                     break;
                 case R.id.checkCredit:
@@ -149,6 +150,7 @@ public class FragmentExpenseForm extends BaseFragment implements View.OnClickLis
                     }else{
                         hideSpinnerCards();
                         hideCheckMonths();
+                        expense.setIdTdc(0);
                     }
                     break;
                 default:

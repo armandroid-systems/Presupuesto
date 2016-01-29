@@ -78,7 +78,7 @@ public class FragmentBudgetDetail extends BaseFragment implements BudgetDetailVi
     @Override
     public void goToAddExpense() {
         Bundle transport = new Bundle();
-        transport.putParcelable(Constants.KEY_PARAMS_FRAGMENT,new Expenses(null,(int)mParam,0,0,0f,"",0 ));
+        transport.putParcelable(Constants.KEY_PARAMS_FRAGMENT,new Expenses(0l,(int)mParam,0,0,0f,"",0 ));
         try {
             ScreenManager.screenChange(getActivity(),
                     R.id.mainActivityWrapper,

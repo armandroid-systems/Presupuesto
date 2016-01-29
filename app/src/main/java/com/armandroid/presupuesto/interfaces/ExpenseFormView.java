@@ -27,4 +27,5 @@ public interface ExpenseFormView {
     void onSpinnerItemSelected(int viewId, Expenses expense, int position);
     void onClickPressed(int viewId, Expenses expense);
     void setDataForm(Expenses expenses);
+
 }

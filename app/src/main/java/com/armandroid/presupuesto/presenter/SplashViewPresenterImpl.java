@@ -45,8 +45,13 @@ public class SplashViewPresenterImpl implements SplashViewPresenter, BousinessCa
     }
 
     @Override
-    public void onSuccesInsert(Object param) {
+    public void onSuccesInsert(long param) {
         Log.d(TAG,"ON SUCCESS INSERT DO NOTHING...");
+    }
+
+    @Override
+    public void onSuccessUpdate(boolean updateState) {
+
     }
 
     @Override

@@ -43,7 +43,7 @@ public class CurdBoussinesInteractorImpl implements CurdBoussinesInteractor {
     @Override
     public void updateARecord(Object param, BousinessCallback bcb) {
         try{
-            bcb.onSucces(mDao.updateGeneric(param));
+            bcb.onSuccessUpdate(mDao.updateGeneric(param));
         }catch(Exception ex){
             bcb.onError(ex.getMessage());
         }
