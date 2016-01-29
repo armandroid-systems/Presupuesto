@@ -43,8 +43,6 @@ public class FragmentExpenseForm extends BaseFragment implements View.OnClickLis
 
     private ExpenseFormViewPresenterImpl expensePresenter;
 
-
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

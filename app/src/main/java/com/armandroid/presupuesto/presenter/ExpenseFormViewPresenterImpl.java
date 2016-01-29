@@ -53,15 +53,6 @@ public class ExpenseFormViewPresenterImpl implements ExpenseFormViewPresenter, B
     }
 
     @Override
-    public void updateExpense(Expenses expense) {
-        if(validateExpense(expense)){
-            interactor.updateARecord(expense, this);
-        }else{
-            expenseView.showMessageState("WRONG");
-        }
-    }
-
-    @Override
     public void onSucces(Object param) {
         dataPack = (CatWrapper)param;
         expenseView.setCategoriesData(dataPack.arrayCategories);

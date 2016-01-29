@@ -9,7 +9,6 @@ public interface ExpenseFormViewPresenter {
 
     void getCatalogObject(int idUser);
     void saveExpense(Expenses expense);
-    void updateExpense(Expenses expense);
     void onCheckedChange(int viewId, Expenses expense, boolean state);
     void onSpinnerItemClicked(int viewId, Expenses expense, int position);
     void onSavePressed(int viewId, Expenses expense);
